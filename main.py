@@ -24,7 +24,9 @@ def process_data(detail):
 # @app.post("/text2/", response_model=My_model)
 # async def post_board(detail: My_model):
 #     return detail
-
+@app.post("/")
+async def index():
+    return {'data': 'api is working'}
 
 @app.post("/text/")
 async def create_user(data=Body(...)):
