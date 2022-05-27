@@ -10,14 +10,14 @@ URL_ENDPOINT = "https://api.monday.com/v2"
 HEADERS = {"Authorization": API_KEY, "Content-Type": "application/json"}
 
 # This represents the task ID we retrieve from Zapier
-# test_id = str(input_data['task_id'])
+# previous_task_id = str(input_data['task_id'])
 # board_id = str(input_data['board_id'])
 
 # # board_id = 2455038905
-# # test_id = 2455039526
+# # previous_task_id = 2455039526
 
 # print('MY BOARD ID', board_id)
-# print('MY TASK ID', test_id)
+# print('MY TASK ID', previous_task_id)
 # boardId = 1784478907
 # pulseId = 1784479186
 # column_type = "Status"
@@ -41,9 +41,9 @@ def check_event_inputs(column_type):
     return is_event_notes, is_event_due_date, is_event_status
 
 
-def main(boardId, pulseId, column_type):
-    test_id = pulseId
-    board_id = boardId
+def main(boardId = None, pulseId = None, column_type = None):
+    previous_task_id = pulseId
+    previous_board_id = boardId
 
     previous_board_id = boardId
     previous_task_id = pulseId
@@ -56,7 +56,7 @@ def main(boardId, pulseId, column_type):
         "DATA_EVENT",
         is_event_due_date,
     )
-    task_data = get_task_data(test_id)
+    task_data = get_task_data(previous_task_id)
 
     # Check which way the communication needs to be done
     to_client_board = check_sync_type(task_data)
@@ -90,7 +90,7 @@ def main(boardId, pulseId, column_type):
             pass
 
         # Retrieve the ID of the board using the client name
-        # board_id = get_board_from_client(client_name)
+        # previous_board_id = get_board_from_client(client_name)
         board_ids.append(client_board_id)
 
     # If the communication needs to go from the Client board to the OPS board(s)
