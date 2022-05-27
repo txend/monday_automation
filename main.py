@@ -2,9 +2,6 @@ from __future__ import annotations
 import uvicorn
 from fastapi import FastAPI, Body
 from pydantic import BaseModel, EmailStr
-import string
-from typing import List, Set, Union
-import json
 from monday import main
 
 app = FastAPI()
