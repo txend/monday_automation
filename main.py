@@ -25,7 +25,7 @@ def process_data(detail):
 async def index():
     return {'data': 'api is working'}
 
-@app.post("/text/")
+@app.post("/text")
 async def create_user(data=Body(...)):
     print(data)
     if "challenge" in data:
@@ -37,4 +37,4 @@ async def create_user(data=Body(...)):
 
 
 # if __name__ == "__main__":
-#     uvicorn.run("main:app", host="0.0.0.0", port=8000)
+#     uvicorn.run("main:app", host="0.0.0.0", port=8020)
