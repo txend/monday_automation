@@ -9,19 +9,6 @@ API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjk0NTQyMDIzLCJ1aWQiOjE2MzAzNDExLCJpYWQi
 URL_ENDPOINT = "https://api.monday.com/v2"
 HEADERS = {"Authorization": API_KEY, "Content-Type": "application/json"}
 
-# This represents the task ID we retrieve from Zapier
-# previous_task_id = str(input_data['task_id'])
-# board_id = str(input_data['board_id'])
-
-# # board_id = 2455038905
-# # previous_task_id = 2455039526
-
-# print('MY BOARD ID', board_id)
-# print('MY TASK ID', previous_task_id)
-# boardId = 1784478907
-# pulseId = 1784479186
-# column_type = "Status"
-
 
 def check_event_inputs(column_type):
     is_event_status = False
@@ -39,131 +26,6 @@ def check_event_inputs(column_type):
         is_event_status = True
 
     return is_event_notes, is_event_due_date, is_event_status
-
-
-def main(boardId = None, pulseId = None, column_type = None):
-    previous_task_id = pulseId
-    previous_board_id = boardId
-
-    previous_board_id = boardId
-    previous_task_id = pulseId
-
-    is_event_notes, is_event_due_date, is_event_status = check_event_inputs(column_type)
-    print(
-        "MY TASK EXCEPT notes:",
-        is_event_notes,
-        type(is_event_notes),
-        "DATA_EVENT",
-        is_event_due_date,
-    )
-    task_data = get_task_data(previous_task_id)
-
-    # Check which way the communication needs to be done
-    to_client_board = check_sync_type(task_data)
-
-    board_ids = []
-
-    # If the communication goes from the OPS board to the client board
-    if to_client_board:
-
-        print("FROM OPS TO CLIENT")
-
-        # Retrieve the client name from the task
-        # We will use it to find the board to send the changes to
-        client_name = get_client_name(task_data)
-        print("OPS CLIENT NAME:", client_name)
-
-        client_board_id = retrieve_client_board_id(task_data)
-        if is_event_notes:
-            task_notes = retrieve_ops_task_notes(task_data)
-            print("OPS CLIENT TASK NOTES:", task_notes)
-            event_value = task_notes
-        elif is_event_due_date:
-            task_date = retrieve_ops_task_date(task_data)
-            print("OPS CLIENT TASK DATE:", task_date)
-            event_value = task_date
-        elif is_event_status:
-            task_status = retrieve_task_status(task_data)
-            print("OPS CLIENT TASK STATUS:", task_status)
-            event_value = task_status
-        else:
-            pass
-
-        # Retrieve the ID of the board using the client name
-        # previous_board_id = get_board_from_client(client_name)
-        board_ids.append(client_board_id)
-
-    # If the communication needs to go from the Client board to the OPS board(s)
-    else:
-
-        print("FROM CLIENT TO OPS")
-
-        # From the task, retrieve the ops user names
-        ops_user_names = get_ops_users(task_data)
-        print("MAPS CLIENT NAME:", ops_user_names)
-
-        # In case there are multiple users assigned to the task, we use a loop
-        for user_name in ops_user_names:
-
-            # Retrieve the board IDS using the ops user names
-            board_ids.extend(get_board_from_ops_user(user_name))
-
-        if is_event_notes:
-            task_notes = retrieve_maps_task_notes(task_data)
-            print("MAPS CLIENT TASK NOTES:", task_notes)
-            event_value = task_notes
-        elif is_event_due_date:
-            task_date = retrieve_maps_task_date(task_data)
-            print("MAPS CLIENT TASK DATE:", task_date)
-            event_value = task_date
-        elif is_event_status:
-            task_status = retrieve_task_status(task_data)
-            print("MAPS CLIENT TASK STATUS:", task_status)
-            event_value = task_status
-        else:
-            pass
-
-    print()
-    print(f"BOARD IDS: {board_ids}")
-    if is_event_notes:
-        process_update_info(
-            board_ids,
-            to_client_board,
-            task_data,
-            event_value,
-            is_event_notes,
-            is_event_due_date,
-            is_event_status,
-            previous_board_id,
-            previous_task_id,
-        )
-    elif is_event_due_date:
-        process_update_info(
-            board_ids,
-            to_client_board,
-            task_data,
-            event_value,
-            is_event_notes,
-            is_event_due_date,
-            is_event_status,
-            previous_board_id,
-            previous_task_id,
-        )
-    elif is_event_status:
-        process_update_info(
-            board_ids,
-            to_client_board,
-            task_data,
-            event_value,
-            is_event_notes,
-            is_event_due_date,
-            is_event_status,
-            previous_board_id,
-            previous_task_id,
-        )
-    else:
-        print("nothing to update")
-
 
 def process_update_info(
     board_ids,
@@ -211,6 +73,7 @@ def process_update_info(
             is_event_status,
             to_client_board,
         )
+    return
 
 
 def make_request(data):
@@ -512,10 +375,13 @@ def update_task(
         + str(event_value)
         + '") {id}}'
     )
+
+    task = 'mutation { change_simple_column_value (board_id: 2327289931, item_id: 2458215873, column_id: "status", value: "In Progress") {id}}'
     data = {"query": task}
     payload = make_request(data)
-
-    print(payload)
+    print("this is payload", payload)
+    #
+    return
 
 
 def get_destination_task_id(board_id, previous_board_id, previous_task_id):
@@ -559,4 +425,124 @@ def get_origin_board_name(task_data):
     return origin_board_name
 
 
-# main(boardId, pulseId, column_type)
+def board_processing(boardId = None, pulseId = None, column_type = None):
+    previous_task_id = pulseId
+    previous_board_id = boardId
+
+    is_event_notes, is_event_due_date, is_event_status = check_event_inputs(column_type)
+    print(
+        "MY TASK EXCEPT notes:",
+        is_event_notes,
+        type(is_event_notes),
+        "DATA_EVENT",
+        is_event_due_date,
+        "STATUS_EVENT",
+        is_event_status,
+    )
+    task_data = get_task_data(previous_task_id)
+
+    # Check which way the communication needs to be done
+    to_client_board = check_sync_type(task_data)
+
+    board_ids = []
+
+    # If the communication goes from the OPS board to the client board
+    if to_client_board:
+
+        print("FROM OPS TO CLIENT")
+
+        # Retrieve the client name from the task
+        # We will use it to find the board to send the changes to
+        client_name = get_client_name(task_data)
+        print("OPS CLIENT NAME:", client_name)
+
+        client_board_id = retrieve_client_board_id(task_data)
+        if is_event_notes:
+            task_notes = retrieve_ops_task_notes(task_data)
+            print("OPS CLIENT TASK NOTES:", task_notes)
+            event_value = task_notes
+        elif is_event_due_date:
+            task_date = retrieve_ops_task_date(task_data)
+            print("OPS CLIENT TASK DATE:", task_date)
+            event_value = task_date
+        elif is_event_status:
+            task_status = retrieve_task_status(task_data)
+            print("OPS CLIENT TASK STATUS:", task_status)
+            event_value = task_status
+        else:
+            pass
+
+        # Retrieve the ID of the board using the client name
+        # previous_board_id = get_board_from_client(client_name)
+        board_ids.append(client_board_id)
+
+    # If the communication needs to go from the Client board to the OPS board(s)
+    else:
+
+        print("FROM CLIENT TO OPS")
+
+        # From the task, retrieve the ops user names
+        ops_user_names = get_ops_users(task_data)
+        print("MAPS CLIENT NAME:", ops_user_names)
+
+        # In case there are multiple users assigned to the task, we use a loop
+        for user_name in ops_user_names:
+
+            # Retrieve the board IDS using the ops user names
+            board_ids.extend(get_board_from_ops_user(user_name))
+
+        if is_event_notes:
+            task_notes = retrieve_maps_task_notes(task_data)
+            print("MAPS CLIENT TASK NOTES:", task_notes)
+            event_value = task_notes
+        elif is_event_due_date:
+            task_date = retrieve_maps_task_date(task_data)
+            print("MAPS CLIENT TASK DATE:", task_date)
+            event_value = task_date
+        elif is_event_status:
+            task_status = retrieve_task_status(task_data)
+            print("MAPS CLIENT TASK STATUS:", task_status)
+            event_value = task_status
+        else:
+            pass
+
+    print()
+    print(f"BOARD IDS: {board_ids}")
+    if is_event_notes:
+        process_update_info(
+            board_ids,
+            to_client_board,
+            task_data,
+            event_value,
+            is_event_notes,
+            is_event_due_date,
+            is_event_status,
+            previous_board_id,
+            previous_task_id,
+        )
+    elif is_event_due_date:
+        process_update_info(
+            board_ids,
+            to_client_board,
+            task_data,
+            event_value,
+            is_event_notes,
+            is_event_due_date,
+            is_event_status,
+            previous_board_id,
+            previous_task_id,
+        )
+    elif is_event_status:
+        process_update_info(
+            board_ids,
+            to_client_board,
+            task_data,
+            event_value,
+            is_event_notes,
+            is_event_due_date,
+            is_event_status,
+            previous_board_id,
+            previous_task_id,
+        )
+    else:
+        print("nothing to update")

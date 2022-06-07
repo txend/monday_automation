@@ -2,20 +2,27 @@ from __future__ import annotations
 import uvicorn
 from fastapi import FastAPI, Body
 from pydantic import BaseModel, EmailStr
-from monday import main
+from monday import board_processing
 
 app = FastAPI()
 
 
 from typing import Any, Optional
 
+fake_id = 0
 
 def process_data(detail):
     column_title = detail["event"]["columnTitle"]
     boardId = detail["event"]["boardId"]
     pulseId = detail["event"]["pulseId"]
-
-    main(boardId, pulseId, column_title)
+    global fake_id
+    if fake_id == 1:
+        fake_id = 0
+        print('Process runs only onces ------------->')
+        return
+    else:
+        fake_id = 1
+        board_processing(boardId, pulseId, column_title)
 
 
 # @app.post("/text2/", response_model=My_model)
