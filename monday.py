@@ -376,7 +376,7 @@ def update_task(
         + '") {id}}'
     )
 
-    task = 'mutation { change_simple_column_value (board_id: 2327289931, item_id: 2458215873, column_id: "status", value: "In Progress") {id}}'
+    # task = 'mutation { change_simple_column_value (board_id: 2327289931, item_id: 2458215873, column_id: "status", value: "In Progress") {id}}'
     data = {"query": task}
     payload = make_request(data)
     print("this is payload", payload)
