@@ -27,6 +27,7 @@ def check_event_inputs(column_type):
 
     return is_event_notes, is_event_due_date, is_event_status
 
+
 def process_update_info(
     board_ids,
     to_client_board,
@@ -79,7 +80,6 @@ def process_update_info(
 def make_request(data):
     """"Makes the HTTP requests, since we are using GraphQL, the endpoint is the same, all that changes
     if the body request
-
     """
     payload = requests.post(URL_ENDPOINT, json=data, headers=HEADERS)
     json_payload = payload.json()
@@ -90,7 +90,6 @@ def make_request(data):
 
 def get_task_data(task_id):
     """"Retrieves the task data using its ID
-
     """
     task_query = (
         "{ items (ids: ["
@@ -106,7 +105,6 @@ def get_task_data(task_id):
 def check_sync_type(task_data):
     """"Checks the communication way by looking for the priority column,
     Which should only exist within ops boards
-
     """
     for i in task_data["data"]["items"][0]["column_values"]:
         try:
@@ -120,7 +118,6 @@ def check_sync_type(task_data):
 
 def get_client_name(task_data):
     """"Retrieves the client name using the task data
-
     """
     for i in task_data["data"]["items"][0]["column_values"]:
         try:
@@ -138,9 +135,7 @@ def get_board_from_client(client_name):
     """"Retrieves the board ID using the client name
     We use pagination to find the board, it has a limit of 10 pages, but can easily be increased
     Since there are 25 results per page, this will work up to 250 boards in the account
-
     Another limitation is that it cannot have two boards with the same board name
-
     """
     for page in range(1, 40):
 
@@ -255,7 +250,6 @@ def retrieve_maps_task_date(task_data):
 
 def retrieve_task_id(board_id, task_data):
     """"Retrieve the task ID
-
     """
     task_query = "{boards(ids: [" + str(board_id) + "]) {items {id name}}}"
     data = {"query": task_query}
@@ -281,7 +275,6 @@ def retrieve_task_id(board_id, task_data):
 
 def get_ops_users(task_data):
     """"Retrieves the ops user names using the task data
-
     """
     for i in task_data["data"]["items"][0]["column_values"]:
         try:
@@ -298,9 +291,7 @@ def get_board_from_ops_user(user_name):
     """"Retrieves board ID from the ops user
     We use pagination to find the board, it has a limit of 10 pages, but can easily be increased
     Since there are 25 results per page, this will work up to 250 boards in the account
-
     Another limitation is that it cannot have two boards with the same first name in it
-
     """
     name_list = user_name.split(" ")
     first_name = name_list[0]
@@ -342,7 +333,6 @@ def update_task(
     to_client_board,
 ):
     """"Updates the task using the data retrieved from Zapier
-
     """
 
     mapping_ops = {"Notes": "text5", "Status": "status", "Due Date": "date4"}
@@ -376,7 +366,7 @@ def update_task(
         + '") {id}}'
     )
 
-    # task = 'mutation { change_simple_column_value (board_id: 2327289931, item_id: 2458215873, column_id: "status", value: "In Progress") {id}}'
+    # task = 'mutation { change_simple_column_value (board_id: Call 2327289931 2327289931, item_id: Call 2458215873 2458215873, column_id: "status", value: "In Progress") {id}}'
     data = {"query": task}
     payload = make_request(data)
     print("this is payload", payload)
@@ -386,7 +376,6 @@ def update_task(
 
 def get_destination_task_id(board_id, previous_board_id, previous_task_id):
     """"Retrieve the task ID
-
     """
     # task_id = None
     # task_name = task_data["data"]["items"][0]["name"]
@@ -425,7 +414,7 @@ def get_origin_board_name(task_data):
     return origin_board_name
 
 
-def board_processing(boardId = None, pulseId = None, column_type = None):
+def board_processing(boardId=None, pulseId=None, column_type=None):
     previous_task_id = pulseId
     previous_board_id = boardId
 

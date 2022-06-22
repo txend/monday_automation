@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "kixie-crm-dialler-automation",
+  "private_key_id": "5023bd1df3a3d338cf22aa63b2f75377e399ac35",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCbMvaB1/uqmgok\nCyOzQxgKTsYEmapS2oukhjy4i9d5+rfMVhEKcep8EBXRQSRwizKNW60+m1R8CZaq\ngvVchsXKI3Yr5s5aOxwR/qwbU4t/FzH9BxcRmGZe/Og9ZcHyvgU3vzul0V4nBs+F\nKrpu4Ml0ofMPGfEuGARVw/HMaX47wdJdLTRtkSGW5pbeqEw04njZiWey+L0omsDc\n6O8mZYlVQcwFES/tJjyOMESha4PkX+ZuSoDKQtzVciNu77sQPrTa6dEvtgv6Kwy4\n1YVt303rvEycAXJS/15UYQYdgRRogudFrdbC8q/BPuh5TiiT1EVqqwivbUzQbtXy\nO1Wl7D7hAgMBAAECggEABkcid5AgCv+eJ2UX9ZliMJCNLAR3QlC601XmwORPPAzr\nQGW+3LhM7uXLrCJBchf/XH533I919GqC4LTZbfu5pnqWviHg+P9pHEU7+wL/Io3y\npLSTt0993JvIXStvk/0hwuaGaCe28kcxP8bBsdh/7arbZSH8govQKRP7BPTDeXFG\niSU94er+Xyq+I6IJCwBsDuLFyRjiMtmy3PffRh6LiUufjAi2ZZskySuwNxsyT/g3\nXxoUBOSlj4D4HC6yTt+xjGrGbkjOSHaPlRZFmRlV9GqDyJqmytLb0lcA9VqDKZnf\nG29pP4A7EUaKln6QRjBql3Ap5bdfQ9KfHgYClYwZkQKBgQDOwMMGYfS7ePVmOSEj\nVt4kQICFLuVuen5nDqJJMiwoA5GCRvbqGc1RHnIa654wCc01qLhaZQycvKv3a9Um\ns6or5zePPzwd8L6CVYv3G3IPYbAO6g8NDRRzcoqabmtUwB8ehVykkTrDl/yuoVZ0\nsn8m1hk/WPK2j10VZjaSmk2PpQKBgQDAKpVXvzz2X4AUglxQpkCt5JETla7Ajwam\nm+S0ohAVJJOGta0cLJ6zNDYoqvJedc1e2hioFoqz9onCECi6Qe1uxYGBeZQ86AbZ\nzNl4wGxeuFrT2IgiHOkFOdPI1j7u3kVkxkEZk/pOUj2zUmZ83FdD3pBOOd5wej+H\n5W16kOnNjQKBgG2QhUlam8DFhvZXDBKYNDxt2i25/mefjmC6xpGXfwLtcSziwnKo\nnb+BLOLLPhci+paXBKsSpa5h5ZfGkzxhNaryauUEk60iKTMUdonLB5TTJeOhcbxu\n1AmiB4VzQnm1HkikT8X+GHASmRtJ8HEDLpK8HsENOAI60w9GDWF/V97pAoGBAIGo\necmRzBVEDIxKBPWZp0xtSwHW3eko18j0qJTEQGuzmSKsVFgNNysc0GoSJaRcgaw9\nJaPMSdvxPbPF6WT69LPn6WCt4rpRp8Wu9REHbFdgtk/36qpxrTwMb3w0KpRLPrEn\nH2eds6bC0MS8lVAr72losx9E5nQn19Pelka7njVFAoGAXBB5bEcoFX0RGsXU3zaT\nJnSZiVvGvMs4kButKc/xpd0Lyc3y73rNNu4CxsWRCZrRfpLdvk0w6rALLreIxlFO\nH11CyFuM6vnI/Bkc38RWat/0vmXIxRRdHMFY5XnlQhFL1pVn3zJIHHHvBoHqx3PW\nRPUajZDmcSDZABwTmFGjoUE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "kixie-crm-dialler-service@kixie-crm-dialler-automation.iam.gserviceaccount.com",
+  "client_id": "112747689593646076779",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/kixie-crm-dialler-service%40kixie-crm-dialler-automation.iam.gserviceaccount.com"
+}
