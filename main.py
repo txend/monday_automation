@@ -1,9 +1,10 @@
 from __future__ import annotations
-from typing import Any, Optional
-import uvicorn
-from fastapi import FastAPI, Body
-from pydantic import BaseModel, EmailStr
+from google_sheet_kixie import find_client
 from monday import board_processing
+from fastapi import FastAPI, Body
+import uvicorn
+from typing import Any, Optional
+
 
 app = FastAPI()
 
@@ -18,19 +19,16 @@ def process_data(detail):
     global fake_id
     if fake_id == 1:
         fake_id = 0
-        print('Process runs only onces ------------->')
+        print("Process runs only onces ------------->")
         return
     else:
         fake_id = 1
         board_processing(boardId, pulseId, column_title)
 
 
-# @app.post("/text2/", response_model=My_model)
-# async def post_board(detail: My_model):
-#     return detail
 @app.get("/")
 async def index():
-    return {'data': 'api is working'}
+    return {"data": "api is working"}
 
 
 @app.post("/text")
@@ -40,8 +38,31 @@ async def create_user(data=Body(...)):
         return data
     else:
         process_data(data)
-        return {"data": 'processing is done'}
+        return {"data": "processing is done"}
     # return data
+
+
+# ep used for the kixei power dilar and CRM (google sheet)
+@app.get("/api")
+async def call_webhook(number):
+    print("\n\n\n\n phone number---------------->", number)
+    record = find_client(number)
+    if record:
+        data = {"found": True, "contact": record}
+        print("contact data----------->", data)
+    else:
+        print("no data found")
+        data = {"found": False}
+        print("contact data----------->", data)
+
+    return data
+
+
+# ep used for the kixei power dilar and CRM (google sheet)
+@app.post("/api")
+async def call_webhook(data=Body(...)):
+    print("data is comming from post----------->", data)
+    return data
 
 
 # if __name__ == "__main__":
