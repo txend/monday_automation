@@ -336,8 +336,7 @@ def update_task(
     """
 
     mapping_ops = {"Notes": "text5", "Status": "status", "Due Date": "date4"}
-    mapping_clients = {"Notes": "text",
-                       "Status": "status", "Task Due Date": "date1"}
+    mapping_clients = {"Notes": "text", "Status": "status", "Task Due Date": "date1"}
 
     if to_client_board:
         mapping = mapping_clients
@@ -419,8 +418,7 @@ def board_processing(boardId=None, pulseId=None, column_type=None):
     previous_task_id = pulseId
     previous_board_id = boardId
 
-    is_event_notes, is_event_due_date, is_event_status = check_event_inputs(
-        column_type)
+    is_event_notes, is_event_due_date, is_event_status = check_event_inputs(column_type)
     print(
         "MY TASK EXCEPT notes:",
         is_event_notes,
