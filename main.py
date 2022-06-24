@@ -31,7 +31,7 @@ async def index():
     return {"data": "api is working"}
 
 
-@app.post("/text")
+@app.post("/text", tags=["Monday.com"])
 async def create_user(data=Body(...)):
     print(data)
     if "challenge" in data:
@@ -43,12 +43,13 @@ async def create_user(data=Body(...)):
 
 
 # ep used for the kixei power dilar and CRM (google sheet)
-@app.get("/api")
+@app.get("/api", tags=["Kixie"])
 async def call_webhook(number):
     print("\n\n\n\n phone number---------------->", number)
     record = find_client(number)
     if record:
-        data = {"found": True, "contact": record}
+        data = {"found": True}
+        data.update(record)
         print("contact data----------->", data)
     else:
         print("no data found")
@@ -59,7 +60,7 @@ async def call_webhook(number):
 
 
 # ep used for the kixei power dilar and CRM (google sheet)
-@app.post("/api")
+@app.post("/api", tags=["Kixie"])
 async def call_webhook(data=Body(...)):
     print("data is comming from post----------->", data)
     return data
