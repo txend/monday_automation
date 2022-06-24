@@ -53,17 +53,14 @@ def find_client(phone_number):
     for c, d in zip(columns_name, row_data):
         if "contact" in c.split('_'):
             key = '_'.join(c.split('_')[1:])
-            print(key)
             contact[key] = d
 
         if "deal" in c.split('_'):
             key = '_'.join(c.split('_')[1:])
-            print(key)
             deal[key] = d
 
         if "org" in c.split('_'):
             key = '_'.join(c.split('_')[1:])
-            print(key)
             org[key] = d
 
     result_dict = {
