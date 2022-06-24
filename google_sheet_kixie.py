@@ -47,7 +47,31 @@ def find_client(phone_number):
     if location is None:
         return
     row_data = worksheet.row_values(location.row)
-    temp_dict = {}
+    contact = {}
+    deal={}
+    org={}
     for c, d in zip(columns_name, row_data):
-        temp_dict[c] = d
-    return temp_dict
+        if "contact" in c.split('_'):
+            key = '_'.join(c.split('_')[1:])
+            print(key)
+            contact[key] = d
+
+        if "deal" in c.split('_'):
+            key = '_'.join(c.split('_')[1:])
+            print(key)
+            deal[key] = d
+
+        if "org" in c.split('_'):
+            key = '_'.join(c.split('_')[1:])
+            print(key)
+            org[key] = d
+
+    result_dict = {
+        "contact": contact,
+        "deal": deal,
+        "org": org
+    }
+    return result_dict
+
+
+# find_client("+15598887642")
