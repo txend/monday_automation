@@ -54,6 +54,9 @@ def find_client(phone_number):
         if "contact" in c.split('_'):
             key = '_'.join(c.split('_')[1:])
             contact[key] = d
+            # temprory logic to show contact id on first name
+            if key == 'contact_id':
+                contact['last_name'] = d
 
         if "deal" in c.split('_'):
             key = '_'.join(c.split('_')[1:])
